@@ -111,8 +111,6 @@ Modifiaremos el archivo `clima_api.py` y definieremos en él unas funciones que 
 from picamera import PiCamera
 from time import sleep
 from signal import pause
-# import os
-# import datetime as dt
 
 # Puedes modificar la ruta donde se guardaran tus archivos, preferentemente que sea dentro de la carpeta donde estas desarrollando el proyecto
 ruta_destino = '/home/pi/Proyectos/projectTelegramBot_v2/media/'

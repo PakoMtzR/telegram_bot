@@ -1,12 +1,13 @@
 from picamera import PiCamera
 from time import sleep
+from signal import pause
 # import os
 # import datetime as dt
-from signal import pause
 
+# Puedes modificar la ruta donde se guardaran tus archivos, preferentemente que sea dentro de la carpeta donde estas desarrollando el proyecto
 ruta_destino = '/home/pi/Proyectos/projectTelegramBot_v2/media/'
-camara = PiCamera()
 
+camara = PiCamera()
 
 def tomar_foto():
    camara.start_preview()
@@ -23,3 +24,4 @@ def grabar_video():
    camara.stop_recording()
    camara.stop_preview()
 
+#if __name__ == "__main__":

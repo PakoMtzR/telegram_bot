@@ -7,38 +7,7 @@ from time import sleep
 import clima_api as clima
 import lights
 
-
-
 now = datetime.datetime.now() # Getting date and time...
-
-
-'''
-GPIO.setmode(GPIO.BOARD)
-
-# Definimos los pines para cada led:
-led_01 = 11
-led_02 = 13
-led_03 = 15
-led_04 = 16
-led_05 = 18
-led_06 = 22
-led_07 = 29
-led_08 = 31
-led_09 = 36
-led_10 = 10
-# Declaramos los pines como salidas
-GPIO.setup(led_01, GPIO.OUT)
-GPIO.setup(led_02, GPIO.OUT)
-GPIO.setup(led_03, GPIO.OUT)
-GPIO.setup(led_04, GPIO.OUT)
-GPIO.setup(led_05, GPIO.OUT)
-GPIO.setup(led_06, GPIO.OUT)
-GPIO.setup(led_07, GPIO.OUT)
-GPIO.setup(led_08, GPIO.OUT)
-GPIO.setup(led_09, GPIO.OUT)
-GPIO.setup(led_10, GPIO.OUT)
-'''
-
 
 def handle(msg):
     chat_id = msg['chat']['id']     # Receiving the message from telegram
@@ -103,7 +72,6 @@ def handle(msg):
             bot.sendMessage(chat_id, str('Error, intentelo más tarde :c'))
     '''
 
-#if __name__ == "__main__":
 # Insert your telegram token below
 bot = telepot.Bot('1973126486:AAFjyJsMHAM8LhcXUTexWUKREtbZJnu6Noc')
 print (bot.getMe())
@@ -112,5 +80,6 @@ print (bot.getMe())
 MessageLoop(bot, handle).run_as_thread()
 print ('Listening....')
 
+# Keep the program running.
 while 1:
     sleep(10)
