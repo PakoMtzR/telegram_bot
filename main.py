@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import telepot                          # Importing the telepot library
 from telepot.loop import MessageLoop    # Library function to communicate with telegram bot
 import datetime                         # Importing the datetime library
@@ -5,7 +7,7 @@ from time import sleep
 
 #import camara_funciones as camara
 import clima_api as clima
-import lights
+import light_test as light
 
 now = datetime.datetime.now() # Getting date and time...
 
@@ -28,22 +30,21 @@ def handle(msg):
 
     elif command.startswith('/turn_on '):
         try:
-            led = command[command.index(' ') + 1:]
-            GPIO.output(led, True)
-            bot.sendMessage(chat_id, str("Led is ON"))
+            led = int(command[command.index(' ') + 1:])
+            output = light.turn_on(led)
+            output()
+            bot.sendMessage(chat_id, 'Led {} encendido'.format(str(led)))
         except:
-            bot.sendMessage(chat_id, str("Error, intentelo más tarde"))
-
+            bot.sendMessage(chat_id, 'Error: Intentelo más tarde')
+    
     elif command.startswith('/turn_off '):
         try:
-            led = command[command.index(' ') + 1:]
-            GPIO.output(led, True)
-            bot.sendMessage(chat_id, str("Led is OFF"))
+            led = int(command[command.index(' ') + 1:])
+            output = light.turn_off(led)
+            output()
+            bot.sendMessage(chat_id, 'Led {} encendido'.format(str(led)))
         except:
-            bot.sendMessage(chat_id, str("Error, intentelo más tarde"))
-
-
-            bot.sendMessage(chat_id, str('Error, intentelo más tarde :c'))
+            bot.sendMessage(chat_id, 'Error: Intentelo más tarde')
 
     elif command.startswith('/weather '):
         try:

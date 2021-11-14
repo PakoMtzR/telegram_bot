@@ -1,13 +1,11 @@
-# -*- coding: utf-8 -*-
-
 # Codigo para comunicarnos con la API (openweather) para obtener el clima de una ciudad
 
 import requests     # importamos la libreria para comunicarnos con la API.
 
-def obtener_info(command):
+def obtener_info(city):
 
    # command = /clima 'ciudad'
-   city = command[command.index(' ') + 1:]
+   #city = command[command.index(' ') + 1:]
 
    # Hacemos la consulta
    url = "http://api.openweathermap.org/data/2.5/weather?q={}&appid=53b0ff471d9a8828d27fc13e19fc7482&units=metric".format(city)
@@ -16,7 +14,7 @@ def obtener_info(command):
    # guardamos los datos de la consulta en una variable con estilo json
    data = res.json()
 
-   # Rescatamos los datos que más nos interesan y los guardamos en variables
+   # Rescatamos los datos que nos interesan y los guardamos en variables
    temp = data["main"]["temp"]
    vel_viento = data["wind"]["speed"]
    latitud = data["coord"]["lat"]
