@@ -20,7 +20,7 @@ def handle(msg):
 
     # Comparing the incoming message to send a reply according to it
     if command == '/hi':
-        bot.sendMessage (chat_id, str("Hola nena UwU  <3"))
+        bot.sendMessage (chat_id, "Hola nena UwU  <3")
 
     elif command == '/time':
         bot.sendMessage(chat_id, str("Time: ") + str(now.hour) + str(":") + str(now.minute) + str(":") + str(now.second))
@@ -53,6 +53,9 @@ def handle(msg):
         except:
             bot.sendMessage(chat_id, str('Error, intentelo más tarde :c'))
     
+    elif command == '/state_list':
+        bot.sendMessage(chat_id, light.print_state_list())
+
     '''
     elif command == '/photo':
         try:
@@ -68,7 +71,7 @@ def handle(msg):
             bot.sendMessage(chat_id, str("recording ..."))
             camara.grabar_video()
             bot.sendMessage(chat_id, str("Ready!!!"))
-            bot.sendPhoto(chat_id, open('/home/pi/Proyectos/projectTelegramBot_v2/media/video_rasp.h264', 'rb'))
+            bot.sendVideo(chat_id, open('/home/pi/Proyectos/projectTelegramBot_v2/media/video_rasp.h264', 'rb'))
         except:
             bot.sendMessage(chat_id, str('Error, intentelo más tarde :c'))
     '''

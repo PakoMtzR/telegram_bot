@@ -67,6 +67,15 @@ def turn_off(argument):
     return switcher.get(argument, "Defalt")
 
 
+def led_state(led, state):
+	if state == True:
+		return 'led_{} --> Encendido\n'.format(led)
+	else: return 'led_{} --> Apagado\n'.format(led)
+
+def print_state_list():
+	state_list = led_state(0, led_0.state) + led_state(1, led_1.state) + led_state(2, led_2.state) + led_state(3, led_3.state) + led_state(4, led_4.state)
+	print(state_list)
+
 '''
 led_0.turnON()
 sleep(5)
