@@ -54,7 +54,8 @@ def handle(msg):
             bot.sendMessage(chat_id, str('Error, intentelo más tarde :c'))
     
     elif command == '/state_list':
-        bot.sendMessage(chat_id, light.print_state_list())
+        leds_states = light.leds_state_list()
+        bot.sendMessage(chat_id, leds_states)
 
     '''
     elif command == '/photo':
