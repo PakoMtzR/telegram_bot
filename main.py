@@ -27,7 +27,7 @@ def handle(msg):
         bot.sendMessage(chat_id, time)
 
     elif command == '/date':
-        date = weather.date
+        date = weather.date()
         bot.sendMessage(chat_id, date)
 
     elif command.startswith('/turn_on '):
@@ -44,7 +44,7 @@ def handle(msg):
             led = int(command[command.index(' ') + 1:])
             output = light.turn_off(led)
             output()
-            bot.sendMessage(chat_id, 'Led {} encendido'.format(str(led)))
+            bot.sendMessage(chat_id, 'Led {} apagado'.format(str(led)))
         except:
             bot.sendMessage(chat_id, 'Error: Intentelo más tarde')
 
@@ -67,7 +67,7 @@ def handle(msg):
             bot.sendPhoto(chat_id, open('/home/pi/Proyectos/projectTelegramBot_v2/media/captura_rasp.jpg', 'rb'))
         except:
             bot.sendMessage(chat_id, str('Error, intentelo más tarde :c'))
-
+    '''
     elif command == '/video':
         try:
             bot.sendMessage(chat_id, str("recording ..."))
@@ -76,7 +76,7 @@ def handle(msg):
             bot.sendVideo(chat_id, open('/home/pi/Proyectos/projectTelegramBot_v2/media/video_rasp.h264', 'rb'))
         except:
             bot.sendMessage(chat_id, str('Error, intentelo más tarde :c'))
-
+    '''
 # Insert your telegram token below
 bot = telepot.Bot('1973126486:AAFjyJsMHAM8LhcXUTexWUKREtbZJnu6Noc')
 print (bot.getMe())
