@@ -62,7 +62,7 @@ def handle(msg):
     elif command == '/photo':
         try:
             bot.sendMessage(chat_id, str("Taking photo ..."))
-            camara.tomar_foto()
+            camara.take_foto()
             bot.sendMessage(chat_id, str("Ready!!!"))
             bot.sendPhoto(chat_id, open('/home/pi/Proyectos/projectTelegramBot_v2/media/captura_rasp.jpg', 'rb'))
         except:
@@ -71,7 +71,7 @@ def handle(msg):
     elif command == '/video':
         try:
             bot.sendMessage(chat_id, str("recording ..."))
-            camara.grabar_video()
+            camara.record_video()
             bot.sendMessage(chat_id, str("Ready!!!"))
             bot.sendVideo(chat_id, open('/home/pi/Proyectos/projectTelegramBot_v2/media/video_rasp.h264', 'rb'))
         except:
