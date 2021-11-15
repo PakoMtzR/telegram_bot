@@ -2,14 +2,14 @@
 
 import telepot                          # Importing the telepot library
 from telepot.loop import MessageLoop    # Library function to communicate with telegram bot
-import datetime                         # Importing the datetime library
+#import datetime                         # Importing the datetime library
 from time import sleep
 
-#import camara_funciones as camara
-import clima_api as clima
-import light_test as light
+import camara_functions as camara
+import weather
+import leds_functions as light
 
-now = datetime.datetime.now() # Getting date and time...
+#now = datetime.datetime.now() # Getting date and time...
 
 def handle(msg):
     chat_id = msg['chat']['id']     # Receiving the message from telegram
@@ -23,10 +23,12 @@ def handle(msg):
         bot.sendMessage (chat_id, "Hola nena UwU  <3")
 
     elif command == '/time':
-        bot.sendMessage(chat_id, str("Time: ") + str(now.hour) + str(":") + str(now.minute) + str(":") + str(now.second))
+        time = weather.time()
+        bot.sendMessage(chat_id, time)
 
     elif command == '/date':
-        bot.sendMessage(chat_id, str("Date: ") + str(now.day) + str("/") + str(now.month) + str("/") + str(now.year))
+        date = weather.date
+        bot.sendMessage(chat_id, date)
 
     elif command.startswith('/turn_on '):
         try:
@@ -48,7 +50,7 @@ def handle(msg):
 
     elif command.startswith('/weather '):
         try:
-            info = clima.obtener_info(command)
+            info = weather.get_info(command)
             bot.sendMessage(chat_id, str(info))
         except:
             bot.sendMessage(chat_id, str('Error, intentelo más tarde :c'))
@@ -57,7 +59,6 @@ def handle(msg):
         leds_states = light.leds_state_list()
         bot.sendMessage(chat_id, leds_states)
 
-    '''
     elif command == '/photo':
         try:
             bot.sendMessage(chat_id, str("Taking photo ..."))
@@ -75,7 +76,6 @@ def handle(msg):
             bot.sendVideo(chat_id, open('/home/pi/Proyectos/projectTelegramBot_v2/media/video_rasp.h264', 'rb'))
         except:
             bot.sendMessage(chat_id, str('Error, intentelo más tarde :c'))
-    '''
 
 # Insert your telegram token below
 bot = telepot.Bot('1973126486:AAFjyJsMHAM8LhcXUTexWUKREtbZJnu6Noc')

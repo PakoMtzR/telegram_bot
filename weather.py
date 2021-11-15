@@ -3,8 +3,19 @@
 # Codigo para comunicarnos con la API (openweather) para obtener el clima de una ciudad
 
 import requests     # importamos la libreria para comunicarnos con la API.
+import datetime
 
-def obtener_info(command):
+now = datetime.datetime.now() # Getting date and time...
+
+def date():
+   date = str("Date: ") + str(now.day) + str("/") + str(now.month) + str("/") + str(now.year) 
+   return date
+
+def time():
+   time = str("Time: ") + str(now.hour) + str(":") + str(now.minute) + str(":") + str(now.second)
+   return time
+
+def get_info(command):
 
    # command = /clima 'ciudad'
    city = command[command.index(' ') + 1:]

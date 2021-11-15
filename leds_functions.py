@@ -1,5 +1,4 @@
 import RPi.GPIO as GPIO
-from time import sleep
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
@@ -76,16 +75,3 @@ def leds_state_list():
 	state_list = led_state(0, led_0.state) + led_state(1, led_1.state) + led_state(2, led_2.state) + led_state(3, led_3.state) + led_state(4, led_4.state)
 	return state_list
 
-'''
-led_0.turnON()
-sleep(5)
-led_0.turnOFF()
--------------------------
-
-output = turn_on(0)
-output()
-sleep(2)
-output = turn_off(0)
-output()
-
-'''
