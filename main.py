@@ -1,24 +1,23 @@
 # -*- coding: utf-8 -*-
 
-import telepot                          # Importing the telepot library
-from telepot.loop import MessageLoop    # Library function to communicate with telegram bot
-#import datetime                         # Importing the datetime library
+import telepot                          
+from telepot.loop import MessageLoop    
 from time import sleep
 
 import camara_functions as camara
 import weather
 import leds_functions as light
 
-#now = datetime.datetime.now() # Getting date and time...
 
 def handle(msg):
-    chat_id = msg['chat']['id']     # Receiving the message from telegram
-    command = msg['text']           # Getting text from the message
+    # Obtenemos informacion del mensaje
+    chat_id = msg['chat']['id']     
+    command = msg['text']           
 
     print ('Received:')
     print(command)
 
-    # Comparing the incoming message to send a reply according to it
+    # Comparamos el mensaje recibido y ejecutamos cierta funcion segun sea el caso
     if command == '/hi':
         bot.sendMessage (chat_id, "Hola nena UwU  <3")
 

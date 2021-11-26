@@ -68,10 +68,9 @@ def turn_off(argument):
 
 def led_state(led, state):
 	if state == True:
-		return 'led_{} --> Encendido\n'.format(led)
-	else: return 'led_{} --> Apagado\n'.format(led)
+		return 'led_{} --> ON\n'.format(led)
+	else: return 'led_{} --> OFF\n'.format(led)
 
 def leds_state_list():
 	state_list = led_state(0, led_0.state) + led_state(1, led_1.state) + led_state(2, led_2.state) + led_state(3, led_3.state) + led_state(4, led_4.state) + led_state(5, led_5.state) + led_state(6, led_6.state) + led_state(7, led_7.state) + led_state(8, led_8.state) + led_state(9, led_9.state)
 	return state_list
-

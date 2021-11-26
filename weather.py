@@ -40,5 +40,3 @@ def get_info(command):
    info = " Temperatura: {0} \n Velocidad del viento: {1} m/s \n Presion: {2} hPa \n Humedad = {3}% \n Latitud: {4} \n Longitud: {5} \n Descripcion: {6} \n".format(temp, vel_viento, presion, humedad, latitud, longitud, descripcion)
 
    return info
-
-#if __name__ == "__main__":
