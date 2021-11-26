@@ -338,16 +338,5 @@ $ python main.py
 ```
 Listo, ahora puedes saltarte esta seccion para ir a la conexión de los componentes.
 
----
+----
 ##### *Nota: Revisa el manual de usuario adjunto para conocer acerca de las conexiones, mantenimiento y operación del producto.*
-
-
-
-
-
-
-
-
-
-
-
