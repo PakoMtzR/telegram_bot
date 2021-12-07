@@ -3,9 +3,20 @@
 ###### Insertar logotipo y eslogan ...
 
 ## 1. Instalación
-*Por definir ...*
 
-## 2. Interacción del bot con telegram
+#### 1.1 Detector de Gas
+El siguiente dispositivo esta pensado para instalarse en zonas que produzcan altos niveles de gas que se concentren en el aire por lo que se recomienda áreas como cocina y tanques de gas, una vez aclarado este punto pasamos a lo siguiente. 
+Este dispositivo se compone de dos partes esenciales, detector de gas y sus bases, primeramente, pasamos a su base. 
+
+1.	Primero realizamos en el área deseada un agujero con alguna herramienta de perforación como el taladro un agujero no tan profundo y con un diámetro de 5mm.
+2.	Para mejor agarre con ayuda de un taquete se introducirá al espacio realizado.
+3.	Después con una pija del mismo o menor tamaño que el agujero se introducirá a la base del dispositivo por encima.
+4.	Ahora con ella se cuidará que queda centrada a la abertura realizada justo a la altura de la base para así sujetarla bien al barreno realizado.
+5.	Finalmente se ajustarán y de esta manera podemos poner encima el dispositivo de gas para su agarre libre y con un lugar específico para su reposo.
+
+
+
+## 2. Guía de uso
 Abriremos la aplicacion de telegram y busaremos el bot como *HouseBot_IPN*.
 
 ###### *Insertar Foto...*
@@ -29,4 +40,9 @@ Una vez dentro del chat podemos ejecutar ciertos comandos como se muestra en la 
 
 
 ## 3. Mantenimiento
-*Por definir ...*
+A continuación, se mencionará algunas recomendaciones para mantener el dispositivo con el debido cuidado para su perfecto funcionamiento:
+
+* No exponer en áreas donde el los rayos del sol no sean directos.
+* Mantener alejado de áreas húmedas.
+* Al estar expuesto en zonas con cochambre, procurar limpiar con un trapo y solo usar pocas gotas de desengrasante para cocina.
+* No exponer directo al fuego o cosas similares. 
