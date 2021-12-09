@@ -1,25 +1,41 @@
 # -*- coding: utf-8 -*-
 
+import serial
 import telepot                          
 from telepot.loop import MessageLoop    
 from time import sleep
+import asyncio
 
-import camara_functions as camara
+#import camara_functions as camara
 import weather
 import leds_functions as light
 
+arduino = serial.Serial('/dev/ttyACM0', 9600)
+arduino.flush()
+
+async def arduinoSerial():
+    while True:
+        if arduino.in_waiting > 0:
+            line = str(arduino.readline())      #.decode('uft-8').rstrip()
+            timbre = line[3]
+            gas = line[5]
+            print(line)
+            #print(timbre)
+            #print(gas)
+            if timbre == '1': bot.sendMessage(1597500632, '[ALERTA]: Han tocado el timbre')
+            if gas == '1': bot.sendMessage(1597500632, '[ALERTA]: Fuga de gas!!!')
 
 def handle(msg):
     # Obtenemos informacion del mensaje
     chat_id = msg['chat']['id']     
     command = msg['text']           
-
+    print(chat_id) 
     print ('Received:')
     print(command)
-
+    
     # Comparamos el mensaje recibido y ejecutamos cierta funcion segun sea el caso
     if command == '/hi':
-        bot.sendMessage (chat_id, "Hola nena UwU  <3")
+        bot.sendMessage(chat_id, "Hola nena UwU  <3")
 
     elif command == '/time':
         time = weather.time()
@@ -57,7 +73,7 @@ def handle(msg):
     elif command == '/state_list':
         leds_states = light.leds_state_list()
         bot.sendMessage(chat_id, leds_states)
-
+'''
     elif command == '/photo':
         try:
             bot.sendMessage(chat_id, str("Taking photo ..."))
@@ -67,7 +83,8 @@ def handle(msg):
         except:
             bot.sendMessage(chat_id, str('Error, intentelo más tarde :c'))
     '''
-    elif command == '/video':
+'''    
+elif command == '/video':
         try:
             bot.sendMessage(chat_id, str("recording ..."))
             camara.record_video()
@@ -83,6 +100,7 @@ print (bot.getMe())
 # Start listening to the telegram bot and whenever a message is  received, the handle function will be called.
 MessageLoop(bot, handle).run_as_thread()
 print ('Listening....')
+asyncio.run(arduinoSerial())
 
 # Keep the program running.
 while 1:
