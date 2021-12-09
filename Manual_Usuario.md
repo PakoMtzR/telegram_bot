@@ -1,6 +1,5 @@
 # Manual de Usuario
 ----
-###### Insertar logotipo y eslogan ...
 
 ## 1. Instalación
 
@@ -14,12 +13,22 @@ Este dispositivo se compone de dos partes esenciales, detector de gas y sus base
 4.	Ahora con ella se cuidará que queda centrada a la abertura realizada justo a la altura de la base para así sujetarla bien al barreno realizado.
 5.	Finalmente se ajustarán y de esta manera podemos poner encima el dispositivo de gas para su agarre libre y con un lugar específico para su reposo.
 
+#### 1.2 Timbre
+Herramienta necesaria:
+* Broca de 3/16
+* Desarmador de cruz
+* Taladro
+
+Pasos:
+1. Seleccionar el lugar para instalación: Para su colocación de este modulo es necesario que se coloque a 4 pies (121cm) despegado del suelo esto para que el dispositivo tenga un gran ángulo de visión.
+2. Perforación: Una vez que tenemos la locación de nuestro timbre es necesario sacar de la caja los tornillos de 3/16, tendremos que hacer los 4 orificios para su colocación.
+3. *Opcional* se puede colocar un taquete en caso de ser necesario o consideración
+4. Ya que se tiene los taquetes tendremos que colocar los tornillos ya puestos en el timbre.
+5. Disfrutar de nuestro nuevo timbre ya colocado.
 
 
 ## 2. Guía de uso
 Abriremos la aplicacion de telegram y busaremos el bot como *HouseBot_IPN*.
-
-###### *Insertar Foto...*
 
 Una vez dentro del chat podemos ejecutar ciertos comandos como se muestra en la siguiente tabla:
 | Comando     | Descripción |
@@ -34,10 +43,7 @@ Una vez dentro del chat podemos ejecutar ciertos comandos como se muestra en la 
 | /photo      | Con este comando, el bot tomará una foto y la mandará al chat   |
 | /video      | Con este comando, el bot grabará un video de 5 segundos y la mandará al chat   |
 
-
-++++++
-###### *Explicación operativa del sensor y el timbre...*
-
+HouseBot estará monitoreando el sensor de gas y el timbre de su casa para que en caso de que toquen el timbre de su casa, HouseBot le enviara una notificacion por Telegram. Así mismo si existiera alguna fuga de gas dentro de su casa.
 
 ## 3. Mantenimiento
 A continuación, se mencionará algunas recomendaciones para mantener el dispositivo con el debido cuidado para su perfecto funcionamiento:

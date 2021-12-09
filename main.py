@@ -6,7 +6,7 @@ from telepot.loop import MessageLoop
 from time import sleep
 import asyncio
 
-#import camara_functions as camara
+import camara_functions as camara
 import weather
 import leds_functions as light
 
@@ -73,7 +73,7 @@ def handle(msg):
     elif command == '/state_list':
         leds_states = light.leds_state_list()
         bot.sendMessage(chat_id, leds_states)
-'''
+
     elif command == '/photo':
         try:
             bot.sendMessage(chat_id, str("Taking photo ..."))
@@ -82,9 +82,8 @@ def handle(msg):
             bot.sendPhoto(chat_id, open('/home/pi/Proyectos/projectTelegramBot_v2/media/captura_rasp.jpg', 'rb'))
         except:
             bot.sendMessage(chat_id, str('Error, intentelo más tarde :c'))
-    '''
-'''    
-elif command == '/video':
+   
+    elif command == '/video':
         try:
             bot.sendMessage(chat_id, str("recording ..."))
             camara.record_video()
@@ -92,7 +91,7 @@ elif command == '/video':
             bot.sendVideo(chat_id, open('/home/pi/Proyectos/projectTelegramBot_v2/media/video_rasp.h264', 'rb'))
         except:
             bot.sendMessage(chat_id, str('Error, intentelo más tarde :c'))
-    '''
+
 # Insert your telegram token below
 bot = telepot.Bot('1973126486:AAFjyJsMHAM8LhcXUTexWUKREtbZJnu6Noc')
 print (bot.getMe())
