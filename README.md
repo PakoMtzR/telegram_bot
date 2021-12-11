@@ -1,8 +1,10 @@
+!['HouseBot'](/static/HouseBot_Logo.jpg "HouseBot") 
 # Funcionamiento del Bot de Telegram para controlar sistemas del hogar con un Raspberry Pi (Progrmación)
 ---
 <img src="/static/rasp-logo.png" width="150" />
 <img src="/static/Telegram-logo.png" width="250" />
 <img src="/static/Python-logo.png" width="150" />
+<img src="/static/arduino-logo.png" width="150" />
 <!--
 !['Telegram'](Telegram-logo.png "Telegram") 
 !['Python'](Python-logo.png "Python")
@@ -44,14 +46,16 @@ $ sudo apt-get upgrade
 
 Una vez se termine de actualizarse, instalaremos los siguientes paquetes de python (no es necesario instalar python porque la raspberry ya lo tiene intalado):
 ```bash
-$ sudo apt-get install python-pip
+$ sudo apt-get install python-pip3
 ```
 
 Ahora instalaremos las siguientes librerias: 
 ```bash
-$ sudo pip install telepot
-$ sudo pip install requests
-$ sudo pip install RPi.GPIO
+$ sudo pip3 install telepot
+$ sudo pip3 install requests
+$ sudo pip3 install RPi.GPIO
+$ sudo pip3 install pyserial
+$ sudo pip3 install asyncio
 ```
 
 ---
@@ -150,9 +154,11 @@ Modificaremos el archivo `leds_functions.py`, este codigo crearemos una clase al
 ```python
 import RPi.GPIO as GPIO
 
+# Configuramos la enumeracion de los pines de la rasp
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 
+# Creamos el objeto led al cual tendrá los métodos de prender y apagar así como algunos atributos que no atudara a diferencias cada uno de ellos
 class Led:
     def __init__(self, pin):
         self.pin = pin
@@ -170,7 +176,7 @@ class Led:
         GPIO.output(self.pin, self.state)
         print('Pin {} Apagado'.format(str(self.pin)))
 
-# Creamos nuestros objetos (leds)
+# Generamos los objetos
 led_0 = Led(11)
 led_1 = Led(13)
 led_2 = Led(15)
@@ -182,7 +188,7 @@ led_7 = Led(31)
 led_8 = Led(36)
 led_9 = Led(37)
 
-# Simulamos un switch case para que el usuario escoga cualquier led y este ejecute el metodo de prender el led
+# Simulamos un switch case para prender el led llamando el metodo turnON del objeto
 def turn_on(argument):
     switcher = {
         0:led_0.turnON,
@@ -199,7 +205,7 @@ def turn_on(argument):
 
     return switcher.get(argument, "Defalt")
 
-# Simulamos un switch case para que el usuario escoga cualquier led y este ejecute el metodo de apagar el led    
+# Simulamos un switch case para apagar el led llamando el metodo turnOFF del objeto    
 def turn_off(argument):
     switcher = {
         0:led_0.turnOFF,
@@ -216,12 +222,13 @@ def turn_off(argument):
 
     return switcher.get(argument, "Defalt")
 
-# Funciones para conocer los estados de los led para posteriormente el usuario puedo verlos en el chat
+# Funcion para conocer el estado de un led (ON/OFF)
 def led_state(led, state):
 	if state == True:
-		return 'led_{} --> Encendido\n'.format(led)
-	else: return 'led_{} --> Apagado\n'.format(led)
+		return 'led_{} --> ON\n'.format(led)
+	else: return 'led_{} --> OFF\n'.format(led)
 
+# Generamos un texto que se mandará como mensaje de la lista de estados de todos los leds
 def leds_state_list():
 	state_list = led_state(0, led_0.state) + led_state(1, led_1.state) + led_state(2, led_2.state) + led_state(3, led_3.state) + led_state(4, led_4.state) + led_state(5, led_5.state) + led_state(6, led_6.state) + led_state(7, led_7.state) + led_state(8, led_8.state) + led_state(9, led_9.state)
 	return state_list
@@ -232,26 +239,44 @@ Finalmente, en el archivo `main.py` colocaremos el codigo que nos permite intera
 ```python
 # -*- coding: utf-8 -*-
 
+import serial
 import telepot                          
 from telepot.loop import MessageLoop    
 from time import sleep
+import asyncio
 
 import camara_functions as camara
 import weather
 import leds_functions as light
 
+# Configuracion para serializar el arduino
+arduino = serial.Serial('/dev/ttyACM0', 9600)
+arduino.flush()
 
+# Función asincrona que rebirirá si se toco el timbre o si el detector de gas manda una señal
+async def arduinoSerial():
+    while True:
+        if arduino.in_waiting > 0:
+            line = str(arduino.readline())
+            timbre = line[3]
+            gas = line[5]
+            print(line)
+            if timbre == '1': bot.sendMessage('########', '[ALERTA]: Han tocado el timbre')
+            if gas == '1': bot.sendMessage('########', '[ALERTA]: Fuga de gas!!!')
+
+# Comunicación con el bot
 def handle(msg):
+
     # Obtenemos informacion del mensaje
     chat_id = msg['chat']['id']     
     command = msg['text']           
-
+    print(chat_id) 
     print ('Received:')
     print(command)
-
+    
     # Comparamos el mensaje recibido y ejecutamos cierta funcion segun sea el caso
     if command == '/hi':
-        bot.sendMessage (chat_id, "Hola nena UwU  <3")
+        bot.sendMessage(chat_id, "Hola nena UwU  <3")
 
     elif command == '/time':
         time = weather.time()
@@ -298,7 +323,7 @@ def handle(msg):
             bot.sendPhoto(chat_id, open('/home/pi/Proyectos/projectTelegramBot_v2/media/captura_rasp.jpg', 'rb'))
         except:
             bot.sendMessage(chat_id, str('Error, intentelo más tarde :c'))
-
+   
     elif command == '/video':
         try:
             bot.sendMessage(chat_id, str("recording ..."))
@@ -308,17 +333,21 @@ def handle(msg):
         except:
             bot.sendMessage(chat_id, str('Error, intentelo más tarde :c'))
 
-# Insert your telegram token below
-bot = telepot.Bot('######################')
+# Insertamos el token de telegram debajo
+bot = telepot.Bot('1973126486:AAFjyJsMHAM8LhcXUTexWUKREtbZJnu6Noc')
 print (bot.getMe())
 
-# Start listening to the telegram bot and whenever a message is  received, the handle function will be called.
+# Empieza a escuchar al bot de telegram y cualquier mensaje que reciba, la funcion handle será llamada
 MessageLoop(bot, handle).run_as_thread()
 print ('Listening....')
 
-# Keep the program running.
+# Ejecutamos el programa para leer los datos del arduino
+asyncio.run(arduinoSerial())
+
+# Mantenemos el programa corriendo
 while 1:
     sleep(10)
+
 ```
 
 ### *Cargar codigo del proyecto*
@@ -334,9 +363,48 @@ bot = telepot.Bot('Bot Token')
 
 Acto seguido, ejecutamos el bot de Python:
 ```bash
-$ python main.py
+$ python3 main.py
 ```
-Listo, ahora puedes saltarte esta seccion para ir a la conexión de los componentes.
+----
+## 4) Programacion del arduino
+Cargaremos el siguiente codigo en nuestra placa arduino, este va a monitorear en tiempo real si el timbre a sido presionado y si el sensor ha detectado gas:
+```c
+// Deninimos los pines
+const int pinTimbre = 2;
+const int pinGas= 4;
+
+// Declaramos las variables donde guardaremos toda la informacion que recolectemos
+String info_Timbre = "";
+String info_Gas = "";
+String mensaje = "";
+
+// Configuracion inicial
+void setup() {
+    Serial.begin(9600);
+    pinMode(pinGas, INPUT);
+    pinMode(pinTimbre, INPUT); 
+}
+
+void loop() {
+    
+    // Se comprueban si tanto el timbre y el sensor han detectado algo para poder mandar informacion en el monitor serial
+    if ((digitalRead(pinTimbre) == 1) || (digitalRead(pinGas) == 1))
+    {
+        info_Timbre += digitalRead(pinTimbre);
+        info_Gas += digitalRead(pinGas);
+        mensaje = 'T' + info_Timbre + 'G' + info_Gas; 
+        Serial.println(mensaje);
+    }
+    
+    // Limpiamos nuestras variables
+    info_Timbre = "";
+    info_Gas = "";
+
+    // Pausamos un momento el programa para que no tenga sobre carga de trabajo
+    delay(200);
+}
+```
+Este codigo lo podrás encontrar con el nombre de `codigo_Arduino.ino`
 
 ----
-##### *Nota: Revisa el manual de usuario adjunto para conocer acerca de las conexiones, mantenimiento y operación del producto.*
+##### *Nota: Revisa el manual de usuario adjunto para revisar la guía de uso, asi como los manuales de usuario*

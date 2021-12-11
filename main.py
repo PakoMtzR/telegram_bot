@@ -10,9 +10,11 @@ import camara_functions as camara
 import weather
 import leds_functions as light
 
+# Configuracion para serializar el arduino
 arduino = serial.Serial('/dev/ttyACM0', 9600)
 arduino.flush()
 
+# Función asincrona que rebirirá si se toco el timbre o si el detector de gas manda una señal
 async def arduinoSerial():
     while True:
         if arduino.in_waiting > 0:
@@ -25,7 +27,9 @@ async def arduinoSerial():
             if timbre == '1': bot.sendMessage(1597500632, '[ALERTA]: Han tocado el timbre')
             if gas == '1': bot.sendMessage(1597500632, '[ALERTA]: Fuga de gas!!!')
 
+# Comunicación con el bot
 def handle(msg):
+
     # Obtenemos informacion del mensaje
     chat_id = msg['chat']['id']     
     command = msg['text']           
@@ -92,15 +96,17 @@ def handle(msg):
         except:
             bot.sendMessage(chat_id, str('Error, intentelo más tarde :c'))
 
-# Insert your telegram token below
+# Insertamos el token de telegram debajo
 bot = telepot.Bot('1973126486:AAFjyJsMHAM8LhcXUTexWUKREtbZJnu6Noc')
 print (bot.getMe())
 
-# Start listening to the telegram bot and whenever a message is  received, the handle function will be called.
+# Empieza a escuchar al bot de telegram y cualquier mensaje que reciba, la funcion handle será llamada
 MessageLoop(bot, handle).run_as_thread()
 print ('Listening....')
+
+# Ejecutamos el programa para leer los datos del arduino
 asyncio.run(arduinoSerial())
 
-# Keep the program running.
+# Mantenemos el programa corriendo
 while 1:
     sleep(10)

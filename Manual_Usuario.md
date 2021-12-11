@@ -1,6 +1,9 @@
 # Manual de Usuario
-----
 
+## HouseBot 
+!['HouseBot'](/static/HouseBot_Logo.jpg "HouseBot") 
+### *"Tú casa a tú servicio"*
+-----
 ## 1. Instalación
 
 #### 1.1 Detector de Gas
@@ -44,6 +47,9 @@ Una vez dentro del chat podemos ejecutar ciertos comandos como se muestra en la 
 | /video      | Con este comando, el bot grabará un video de 5 segundos y la mandará al chat   |
 
 HouseBot estará monitoreando el sensor de gas y el timbre de su casa para que en caso de que toquen el timbre de su casa, HouseBot le enviara una notificacion por Telegram. Así mismo si existiera alguna fuga de gas dentro de su casa.
+
+A continuación te proporcionamos un tutorial acerca de proyecto:
+*Tutorial:* [*Tutorial_HouseBot*](https://www.youtube.com/watch?v=uuMzS9kf8Sk&t=113s)
 
 ## 3. Mantenimiento
 A continuación, se mencionará algunas recomendaciones para mantener el dispositivo con el debido cuidado para su perfecto funcionamiento:
